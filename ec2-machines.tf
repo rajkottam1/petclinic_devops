@@ -8,14 +8,14 @@ resource "aws_instance" "civm" {
   instance_type = "t2.micro"
   associate_public_ip_address = "true"
   subnet_id = "${aws_subnet.PublicAZA.id}"
-  vpc_security_group_ids = ["${aws_security_group.FrontEnd.id}"]
+  vpc_security_group_ids = ["${aws_security_group.CIserver.id}"]
   key_name = "${var.key_name}"
   tags {
         Name = "civm"
   }
   user_data = <<HEREDOC
   #!/bin/bash
-	
+
   yum update -y
   yum -y install git
   Yum -y remove *java*
@@ -29,8 +29,8 @@ resource "aws_instance" "civm" {
   git clone https://github.com/spring-projects/spring-petclinic.git
   cd spring-petclinic
   ./mvnw package
-  java -jar target/*.jar  
-  
+  java -jar target/*.jar
+
 HEREDOC
 }
 
@@ -39,7 +39,7 @@ resource "aws_instance" "appvm" {
   instance_type = "t2.micro"
   associate_public_ip_address = "false"
   subnet_id = "${aws_subnet.PrivateAZA.id}"
-  vpc_security_group_ids = ["${aws_security_group.Database.id}"]
+  vpc_security_group_ids = ["${aws_security_group.Appserver.id}"]
   key_name = "${var.key_name}"
   tags {
         Name = "appvm"

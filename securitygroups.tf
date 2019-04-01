@@ -29,7 +29,7 @@ resource "aws_security_group" "CIserver" {
 resource "aws_security_group" "Appserver" {
   name = "Appserver"
   tags {
-        Name = "Database"
+        Name = "Appserver"
   }
   description = "ONLY tcp CONNECTION INBOUND"
   vpc_id = "${aws_vpc.terraformmain.id}"
