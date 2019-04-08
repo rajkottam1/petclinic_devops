@@ -1,7 +1,7 @@
 resource "aws_key_pair" "demotmp" {
   key_name = "demotmp"
-  public_key = "<Public_Key>"
-}
+  public_key = ""
+  }
 
 resource "aws_instance" "civm" {
   ami           = "${lookup(var.AmiLinux, var.region)}"
